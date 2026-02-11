@@ -398,7 +398,7 @@
 }
 
 - (MPRemoteCommandHandlerStatus)remoteChangePlaybackPosition:(MPChangePlaybackPositionCommandEvent *)event {
-    CMTime seekTime = CMTimeMakeWithSeconds(event.positionTime, NSEC_PER_SEC);
+    CMTime seekTime = CMTimeMakeWithSeconds(event.positionTime, 600);
     [self.currentPlayer seekToTime:seekTime completionHandler:^(BOOL finished) {
         [self updateNowPlayingElapsedTime];
     }];
@@ -413,7 +413,7 @@
         self.timeObserver = nil;
     }
     __weak typeof(self) weakSelf = self;
-    self.timeObserver = [self.currentPlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC)
+    self.timeObserver = [self.currentPlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, 600)
                                                                         queue:dispatch_get_main_queue()
                                                                    usingBlock:^(CMTime time) {
         [weakSelf updateNowPlayingElapsedTime];
